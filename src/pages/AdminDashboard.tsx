@@ -1,9 +1,7 @@
-
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { DataTable } from "@/components/ui/table";
 import TeamForm from "@/components/admin/TeamForm";
 import PlayerForm from "@/components/admin/PlayerForm";
 import MatchForm from "@/components/admin/MatchForm";
