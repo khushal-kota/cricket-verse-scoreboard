@@ -1,7 +1,7 @@
 
 import { Team } from "@/types/cricket";
 import { Card, CardContent } from "@/components/ui/card";
-import { Trophy } from "lucide-react";
+import { Trophy, MapPin, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -14,7 +14,7 @@ const TeamCard = ({ team }: TeamCardProps) => {
     <Link to={`/team/${team.id}`} className="block">
       <Card className="overflow-hidden hover:shadow-lg cursor-pointer transition-all duration-300 hover:-translate-y-1">
         <div 
-          className="h-24 flex items-center justify-center"
+          className="h-32 flex items-center justify-center"
           style={{
             background: `linear-gradient(to right, ${team.primaryColor || '#1F4BC7'}, ${team.secondaryColor || '#0F255E'})`
           }}
@@ -22,7 +22,7 @@ const TeamCard = ({ team }: TeamCardProps) => {
           <img 
             src={team.logo || "/team-logos/placeholder.svg"} 
             alt={team.name}
-            className="h-16 w-16 object-contain"
+            className="h-24 w-24 object-contain bg-white/10 p-2 rounded-full shadow-lg"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
               target.src = "/team-logos/placeholder.svg";
@@ -40,14 +40,23 @@ const TeamCard = ({ team }: TeamCardProps) => {
             )}
           </div>
           <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
-            <div className={cn("p-2 rounded-md bg-primary/10")}>
-              <p className="text-muted-foreground text-xs">Captain</p>
-              <p className="font-medium">{team.captain}</p>
+            <div className={cn("p-2 rounded-md bg-primary/10 flex items-start")}>
+              <User className="w-3 h-3 mr-1 mt-0.5 text-muted-foreground" />
+              <div>
+                <p className="text-muted-foreground text-xs">Captain</p>
+                <p className="font-medium">{team.captain}</p>
+              </div>
             </div>
-            <div className={cn("p-2 rounded-md bg-primary/10")}>
-              <p className="text-muted-foreground text-xs">Home</p>
-              <p className="font-medium truncate">{team.homeGround.split(',')[0]}</p>
+            <div className={cn("p-2 rounded-md bg-primary/10 flex items-start")}>
+              <MapPin className="w-3 h-3 mr-1 mt-0.5 text-muted-foreground" />
+              <div>
+                <p className="text-muted-foreground text-xs">Home</p>
+                <p className="font-medium truncate">{team.homeGround.split(',')[0]}</p>
+              </div>
             </div>
+          </div>
+          <div className="mt-3 text-xs text-muted-foreground">
+            <p>Players: {team.players.length}</p>
           </div>
         </CardContent>
       </Card>

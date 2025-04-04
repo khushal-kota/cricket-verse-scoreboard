@@ -11,6 +11,17 @@ export interface Team {
   homeGround: string;
   championships: number;
   players: Player[];
+  description?: string;
+  foundedYear?: number;
+  owner?: string;
+  socialLinks?: SocialLinks;
+}
+
+export interface SocialLinks {
+  twitter?: string;
+  instagram?: string;
+  facebook?: string;
+  website?: string;
 }
 
 export interface Player {
@@ -24,6 +35,12 @@ export interface Player {
   nationality: string;
   age: number;
   stats: PlayerStats;
+  jerseyNumber?: string;
+  birthplace?: string;
+  iccRanking?: number;
+  biography?: string;
+  dateOfBirth?: string;
+  socialLinks?: SocialLinks;
 }
 
 export enum PlayerRole {
@@ -44,6 +61,10 @@ export interface PlayerStats {
   wickets: number;
   bestBowling: string;
   economyRate: number;
+  battingPosition?: number;
+  catches?: number;
+  stumpings?: number;
+  hatTricks?: number;
 }
 
 export interface Match {

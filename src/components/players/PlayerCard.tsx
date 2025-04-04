@@ -4,6 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { teams } from "@/data/mockData";
+import { Bat, Cricket, Flag, Info } from "lucide-react";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 
 interface PlayerCardProps {
   player: Player;
@@ -28,7 +30,7 @@ const PlayerCard = ({ player }: PlayerCardProps) => {
             <img 
               src={player.image || "/player-images/placeholder.svg"} 
               alt={player.name}
-              className="h-36 w-36 object-contain rounded-full bg-white p-1"
+              className="h-36 w-36 object-cover rounded-full bg-white p-1"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.src = "/player-images/placeholder.svg";
@@ -42,6 +44,27 @@ const PlayerCard = ({ player }: PlayerCardProps) => {
             <Badge variant="outline">{player.role}</Badge>
             <Badge variant="secondary">{team?.shortName || player.teamId.toUpperCase()}</Badge>
           </div>
+          
+          <div className="mb-3 flex items-center justify-center gap-2 text-sm text-muted-foreground">
+            <Flag className="h-3 w-3" />
+            <span>{player.nationality}</span>
+            <span className="text-xs">•</span>
+            <span>{player.age} yrs</span>
+          </div>
+          
+          <div className="flex items-center justify-center gap-4 mb-4 text-sm">
+            <div className="flex items-center">
+              <Bat className="h-3 w-3 mr-1" />
+              <span>{player.battingStyle}</span>
+            </div>
+            {player.bowlingStyle && (
+              <div className="flex items-center">
+                <Cricket className="h-3 w-3 mr-1" />
+                <span>{player.bowlingStyle}</span>
+              </div>
+            )}
+          </div>
+          
           <div className="grid grid-cols-2 gap-4 mt-4">
             <div>
               <div className="text-xs text-muted-foreground">Matches</div>
@@ -61,6 +84,47 @@ const PlayerCard = ({ player }: PlayerCardProps) => {
               )}
             </div>
           </div>
+          
+          <HoverCard>
+            <HoverCardTrigger asChild>
+              <div className="mt-4 flex items-center justify-center cursor-help">
+                <Info className="h-3 w-3 mr-1" />
+                <span className="text-xs text-muted-foreground">More stats</span>
+              </div>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-80">
+              <div className="grid grid-cols-2 gap-2">
+                <div className="text-sm">
+                  <div className="text-xs text-muted-foreground">Highest Score</div>
+                  <div>{player.stats.highestScore}</div>
+                </div>
+                <div className="text-sm">
+                  <div className="text-xs text-muted-foreground">Average</div>
+                  <div>{player.stats.average.toFixed(2)}</div>
+                </div>
+                <div className="text-sm">
+                  <div className="text-xs text-muted-foreground">Strike Rate</div>
+                  <div>{player.stats.strikeRate.toFixed(2)}</div>
+                </div>
+                <div className="text-sm">
+                  <div className="text-xs text-muted-foreground">50s/100s</div>
+                  <div>{player.stats.fifties}/{player.stats.hundreds}</div>
+                </div>
+                {player.role !== "Batsman" && (
+                  <>
+                    <div className="text-sm">
+                      <div className="text-xs text-muted-foreground">Best Bowling</div>
+                      <div>{player.stats.bestBowling}</div>
+                    </div>
+                    <div className="text-sm">
+                      <div className="text-xs text-muted-foreground">Economy</div>
+                      <div>{player.stats.economyRate.toFixed(2)}</div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </HoverCardContent>
+          </HoverCard>
         </CardContent>
       </Card>
     </Link>
