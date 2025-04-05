@@ -9,13 +9,13 @@ import { PlayerRole } from "@/types/cricket";
 
 const PlayersPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [teamFilter, setTeamFilter] = useState<string>("");
-  const [roleFilter, setRoleFilter] = useState<string>("");
+  const [teamFilter, setTeamFilter] = useState<string>("all");
+  const [roleFilter, setRoleFilter] = useState<string>("all");
   
   const filteredPlayers = players.filter(player => {
     const nameMatch = player.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const teamMatch = teamFilter ? player.teamId === teamFilter : true;
-    const roleMatch = roleFilter ? player.role === roleFilter : true;
+    const teamMatch = teamFilter === "all" ? true : player.teamId === teamFilter;
+    const roleMatch = roleFilter === "all" ? true : player.role === roleFilter;
     return nameMatch && teamMatch && roleMatch;
   });
 
@@ -44,7 +44,7 @@ const PlayersPage = () => {
                 <SelectValue placeholder="Filter by team" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Teams</SelectItem>
+                <SelectItem value="all">All Teams</SelectItem>
                 {teams.map(team => (
                   <SelectItem key={team.id} value={team.id}>{team.name}</SelectItem>
                 ))}
@@ -58,7 +58,7 @@ const PlayersPage = () => {
                 <SelectValue placeholder="Filter by role" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Roles</SelectItem>
+                <SelectItem value="all">All Roles</SelectItem>
                 {Object.values(PlayerRole).map(role => (
                   <SelectItem key={role} value={role}>{role}</SelectItem>
                 ))}
