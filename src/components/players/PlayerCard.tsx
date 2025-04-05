@@ -27,6 +27,7 @@ const PlayerCard = ({ player }: PlayerCardProps) => {
                 : 'linear-gradient(to bottom right, #1F4BC7, #0F255E)'
             }}
           />
+          <div className="absolute inset-0 opacity-10 bg-pattern"></div>
           <div className="flex items-center justify-center h-full relative z-10">
             <img 
               src={player.image || "/player-images/placeholder.svg"} 

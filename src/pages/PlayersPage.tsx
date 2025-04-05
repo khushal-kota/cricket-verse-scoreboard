@@ -1,24 +1,22 @@
 
 import { useState } from "react";
 import PlayerCard from "@/components/players/PlayerCard";
-import { players } from "@/data/mockData";
+import { players, teams } from "@/data/mockData";
 import { Input } from "@/components/ui/input";
-import { Search, Users } from "lucide-react";
+import { Search, User } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { teams } from "@/data/mockData";
 import { PlayerRole } from "@/types/cricket";
 
 const PlayersPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [teamFilter, setTeamFilter] = useState("");
-  const [roleFilter, setRoleFilter] = useState("");
+  const [teamFilter, setTeamFilter] = useState<string>("");
+  const [roleFilter, setRoleFilter] = useState<string>("");
   
   const filteredPlayers = players.filter(player => {
-    const matchesSearch = player.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesTeam = teamFilter ? player.teamId === teamFilter : true;
-    const matchesRole = roleFilter ? player.role === roleFilter : true;
-    
-    return matchesSearch && matchesTeam && matchesRole;
+    const nameMatch = player.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const teamMatch = teamFilter ? player.teamId === teamFilter : true;
+    const roleMatch = roleFilter ? player.role === roleFilter : true;
+    return nameMatch && teamMatch && roleMatch;
   });
 
   return (
@@ -32,21 +30,21 @@ const PlayersPage = () => {
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
           <Input
-            placeholder="Search players"
+            placeholder="Search players by name"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10"
           />
         </div>
         
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="w-full md:w-1/3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
             <Select value={teamFilter} onValueChange={setTeamFilter}>
               <SelectTrigger>
                 <SelectValue placeholder="Filter by team" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Teams</SelectItem>
+                <SelectItem value="">All Teams</SelectItem>
                 {teams.map(team => (
                   <SelectItem key={team.id} value={team.id}>{team.name}</SelectItem>
                 ))}
@@ -54,24 +52,24 @@ const PlayersPage = () => {
             </Select>
           </div>
           
-          <div className="w-full md:w-1/3">
+          <div>
             <Select value={roleFilter} onValueChange={setRoleFilter}>
               <SelectTrigger>
                 <SelectValue placeholder="Filter by role" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Roles</SelectItem>
+                <SelectItem value="">All Roles</SelectItem>
                 {Object.values(PlayerRole).map(role => (
                   <SelectItem key={role} value={role}>{role}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
-          
-          <div className="w-full md:w-1/3 flex items-center justify-end text-sm text-muted-foreground">
-            <Users className="mr-2 h-4 w-4" />
-            <span>{filteredPlayers.length} Players</span>
-          </div>
+        </div>
+        
+        <div className="flex items-center text-sm text-muted-foreground">
+          <User className="mr-2 h-4 w-4" />
+          <span>{filteredPlayers.length} Players</span>
         </div>
       </div>
       
