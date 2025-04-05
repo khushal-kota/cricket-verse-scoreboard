@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { teams } from "@/data/mockData";
-import { Bat, Cricket, Flag, Info } from "lucide-react";
+import { Flag, Info, Activity, CircleDot } from "lucide-react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 
 interface PlayerCardProps {
@@ -54,12 +54,12 @@ const PlayerCard = ({ player }: PlayerCardProps) => {
           
           <div className="flex items-center justify-center gap-4 mb-4 text-sm">
             <div className="flex items-center">
-              <Bat className="h-3 w-3 mr-1" />
+              <Activity className="h-3 w-3 mr-1" />
               <span>{player.battingStyle}</span>
             </div>
             {player.bowlingStyle && (
               <div className="flex items-center">
-                <Cricket className="h-3 w-3 mr-1" />
+                <CircleDot className="h-3 w-3 mr-1" />
                 <span>{player.bowlingStyle}</span>
               </div>
             )}
