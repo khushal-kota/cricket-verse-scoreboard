@@ -17,7 +17,7 @@ const PlayerCard = ({ player }: PlayerCardProps) => {
   
   return (
     <Link to={`/player/${player.id}`} className="block">
-      <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+      <Card className="cricket-card overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
         <div className="h-48 overflow-hidden relative">
           <div 
             className="absolute inset-0 w-full h-full z-0"
@@ -30,7 +30,7 @@ const PlayerCard = ({ player }: PlayerCardProps) => {
           <div className="absolute inset-0 opacity-10 bg-pattern"></div>
           <div className="flex items-center justify-center h-full relative z-10">
             <img 
-              src={player.image || "/player-images/placeholder.svg"} 
+              src={player.image}
               alt={player.name}
               className="h-36 w-36 object-cover rounded-full bg-white p-1 shadow-lg"
               onError={(e) => {
@@ -42,7 +42,7 @@ const PlayerCard = ({ player }: PlayerCardProps) => {
           {team && (
             <div className="absolute bottom-2 right-2 z-20">
               <img 
-                src={team.logo || "/team-logos/placeholder.svg"} 
+                src={team.logo}
                 alt={team.name}
                 className="h-10 w-10 object-contain bg-white rounded-full p-1 shadow-md"
                 onError={(e) => {
@@ -110,7 +110,7 @@ const PlayerCard = ({ player }: PlayerCardProps) => {
             <HoverCardContent className="w-80">
               <div className="flex items-center gap-4 mb-3">
                 <Avatar className="h-12 w-12">
-                  <AvatarImage src={player.image || "/player-images/placeholder.svg"} alt={player.name} />
+                  <AvatarImage src={player.image} alt={player.name} />
                   <AvatarFallback><User /></AvatarFallback>
                 </Avatar>
                 <div>

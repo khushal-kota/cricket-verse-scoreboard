@@ -14,7 +14,7 @@ interface TeamCardProps {
 const TeamCard = ({ team }: TeamCardProps) => {
   return (
     <Link to={`/team/${team.id}`} className="block">
-      <Card className="overflow-hidden hover:shadow-lg cursor-pointer transition-all duration-300 hover:-translate-y-1">
+      <Card className="cricket-card overflow-hidden hover:shadow-lg cursor-pointer transition-all duration-300 hover:-translate-y-1">
         <div className="relative">
           <AspectRatio ratio={16/9} className="bg-muted">
             <div 
@@ -25,7 +25,7 @@ const TeamCard = ({ team }: TeamCardProps) => {
             >
               <div className="absolute inset-0 opacity-10 bg-pattern"></div>
               <img 
-                src={team.logo || "/team-logos/placeholder.svg"} 
+                src={team.logo}
                 alt={team.name}
                 className="h-24 w-24 object-contain bg-white/10 p-2 rounded-full shadow-lg"
                 onError={(e) => {
