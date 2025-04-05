@@ -4,8 +4,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { teams } from "@/data/mockData";
-import { Flag, Info, Activity, CircleDot } from "lucide-react";
+import { Flag, Info, Activity, CircleDot, User } from "lucide-react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface PlayerCardProps {
   player: Player;
@@ -30,13 +31,26 @@ const PlayerCard = ({ player }: PlayerCardProps) => {
             <img 
               src={player.image || "/player-images/placeholder.svg"} 
               alt={player.name}
-              className="h-36 w-36 object-cover rounded-full bg-white p-1"
+              className="h-36 w-36 object-cover rounded-full bg-white p-1 shadow-lg"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.src = "/player-images/placeholder.svg";
               }}
             />
           </div>
+          {team && (
+            <div className="absolute bottom-2 right-2 z-20">
+              <img 
+                src={team.logo || "/team-logos/placeholder.svg"} 
+                alt={team.name}
+                className="h-10 w-10 object-contain bg-white rounded-full p-1 shadow-md"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = "/team-logos/placeholder.svg";
+                }}
+              />
+            </div>
+          )}
         </div>
         <CardContent className="p-4 text-center">
           <h3 className="font-bold text-lg mb-1">{player.name}</h3>
@@ -93,6 +107,17 @@ const PlayerCard = ({ player }: PlayerCardProps) => {
               </div>
             </HoverCardTrigger>
             <HoverCardContent className="w-80">
+              <div className="flex items-center gap-4 mb-3">
+                <Avatar className="h-12 w-12">
+                  <AvatarImage src={player.image || "/player-images/placeholder.svg"} alt={player.name} />
+                  <AvatarFallback><User /></AvatarFallback>
+                </Avatar>
+                <div>
+                  <h4 className="font-semibold">{player.name}</h4>
+                  <p className="text-xs text-muted-foreground">{player.nationality} | #{player.jerseyNumber || "N/A"}</p>
+                </div>
+              </div>
+              
               <div className="grid grid-cols-2 gap-2">
                 <div className="text-sm">
                   <div className="text-xs text-muted-foreground">Highest Score</div>
